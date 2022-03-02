@@ -60,14 +60,17 @@ def main():
             print(f'{q9.choice()}')
 
         elif menu == '10':
-            q10 = Quiz10Rps(int(input('0.가위 1.바위 2.보')))
-            print(f'사용자: {q10.player}\n 컴퓨터: {q10.com}\n 결과: {q10.game()}')
+            q10 = Quiz10Rps()
+            print(f'{q10.game()}')
         elif menu == '11':
-            print()
+            q11=Quiz11GetPrime(int(input('최소구간')),int(input('최대구간')))
+            print(f'{q11.prime()}')
         elif menu == '12':
-            print()
+            q12 = Quiz12LeapYear(int(input('년도')))
+            print(f'{q12.leap()}')
         elif menu == '13':
-            print()
+            q13 = Quiz13NumberGolf()
+            print(f'{q13.game()}')
         elif menu == '14':
             print()
         elif menu == '15':
@@ -144,7 +147,6 @@ class Quiz02BmiCalc(object):
         else:
             return '똑바로 적어라'
 
-
 class Quiz03Grade(object):
 
     def __init__(self, name, kor, eng, math):
@@ -178,7 +180,6 @@ class Quiz03Grade(object):
             return '불합격'
         else:
             return '합격'
-
 
 class Quiz04Circle(object):
 
@@ -274,38 +275,80 @@ class Quiz09RandomChoice(object):#803호에서 랜덤으로 1명 이름 추출
 
 
 class Quiz10Rps(object):
-    def __init__(self,player):
-        self.player = player
+    def __init__(self):
         self.com = myRandom(0, 2)
 
     def game(self):
-        c = self.com
-        p = self.player
-        if c-p == 2 or -1:
-            res = 'WIN'
-        elif c-p == 1 or -2:
-            res = 'LOSE'
-        elif c-p == 0:
-            res = 'DRAW'
-        return res
+        while 1:
+            c= self.com
+            p = int(input('0.가위 1.바위 2.보 3.EXIT'))
+            if p==3:
+                return 'EXIT'
+            if c-p == 2 or c-p == -1:
+                print(f'플레이어: {p}\n 컴퓨터:{c}\n 결과:WIN')
+            elif c-p == 1 or c-p == -2:
+                print(f'플레이어: {p}\n 컴퓨터:{c}\n 결과:LOSE')
+            elif c-p == 0:
+                print(f'플레이어: {p}\n 컴퓨터:{c}\n 결과:DRAW')
 
-    ''' 컴퓨터0(가위) / 게이머1(바위)(win) = -1
+
+    '''
+    <게이머 승리일때>
+     컴퓨터0(가위) / 게이머1(바위)(win) = -1
      컴퓨터1(바위) / 게이머2(보)(win) = -1
      컴퓨터2(보) / 게이머0(가위)(win) = 2
-
+    <컴퓨터 승리일때>
      컴퓨터0(가위) / 게이머2(보)(lose) = -2
      컴퓨터1(바위) / 게이머0(가위)(lose) = 1
-    컴퓨터2(보) / 게이머1(바위) = 1 '''
+     컴퓨터2(보) / 게이머1(바위)(lose) = 1 '''
 
 class Quiz11GetPrime(object):
-    def __init__(self):
-        pass
+    def __init__(self,area,area2):
+        self.area=area
+        self.area2=area2
+
+
+    def prime(self):
+        a = self.area
+        b= self.area2
+        for i in range(a, b+1):
+            num = 0
+            for j in range(2, i):
+                if i % j == 0:
+                    num = 1
+            if num == 0:
+                res= f'{i}'
+                return res
+
 class Quiz12LeapYear(object):
-    def __init__(self):
-        pass
+    def __init__(self,year):
+        self.year=year
+    def leap(self):
+        y=self.year
+        if (y % 4 == 0 and not y % 100 == 0 or y % 400 == 0):
+            res='윤년'
+        else:
+            res='평년'
+        return res
+
 class Quiz13NumberGolf(object):
     def __init__(self):
-        pass
+        self.static = myRandom(0, 100)
+
+    def game(self):
+        st = self.static
+        print(st)
+        while 1:
+            se = int(input('숫자!'))
+            if st == se:
+                res = '정답'
+                return res
+            elif st > se:
+                print('업')
+            elif st < se:
+                print('아래')
+
+
 class Quiz14Lotto(object):
     def __init__(self):
         pass
