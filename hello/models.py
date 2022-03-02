@@ -1,8 +1,10 @@
 import random
+
 def main():
     while 1:
-        menu = input('0.Exit 1.계산기 2.BMI 계산기 3. 성적표 4.원넓이 계산기 5.월급(주급)계산기'
-                     '6.오토 성적표 7.주사위 8.랜덤값 1개추출(정수) 9.랜덤 1명이름 추출')
+        menu = input('0.Exit 1.계산기 2.BMI 계산기 3. 성적표 4.원넓이 계산기 5.월급(주급)계산기\n'
+                     ' 6.오토 성적표 7.주사위 8.랜덤값 1개추출(정수) 9.랜덤 1명이름 추출 10.가위 바위 보\n '
+                     '11. 소수 12.윤년 13. 숫자 스무고개 14.로또 15.은행 16.구구단')
 
         if menu == '0':
             break
@@ -50,6 +52,28 @@ def main():
                   f' {dice.vs()}')
 
         elif menu == '8':
+            q8 = Quiz08Generator(int(input('최소값')), int(input('최대값')))
+            print(f'{q8.essence}')
+
+        elif menu == '9':
+            q9 = Quiz09RandomChoice()
+            print(f'{q9.choice()}')
+
+        elif menu == '10':
+            q10 = Quiz10Rps(int(input('0.가위 1.바위 2.보')))
+            print(f'사용자: {q10.player}\n 컴퓨터: {q10.com}\n 결과: {q10.game()}')
+        elif menu == '11':
+            print()
+        elif menu == '12':
+            print()
+        elif menu == '13':
+            print()
+        elif menu == '14':
+            print()
+        elif menu == '15':
+            print()
+        elif menu == '16':
+            print()
 
         else:
             print('숫자 똑바로 적어라')
@@ -213,41 +237,84 @@ class Quiz06GradeAuto(object):
         else:
             return '합격'
 
+@staticmethod
+def myRandom(start, end):
+    return random.randint(start, end)
 
 class Quiz07Dice(object):
     def __init__(self):
-        self.dice01 = random.randint(1, 6)
-        self.dice02 = random.randint(1, 6)
-
-    def min(self):
-        if self.dice01 > self.dice02:
-            return self.dice01 - self.dice02
-        elif self.dice01 < self.dice02:
-            return self.dice02 - self.dice01
-        else:
-            return 0
+        self.dice01 = myRandom(1, 6)
+        self.dice02 = myRandom(1, 6)
 
     def vs(self):
         if self.dice01 > self.dice02:
-            return f'1번 주사위가 {self.min()}차이로 이겼다'
+            return f'1번 주사위가 {self.dice01 - self.dice02}차이로 이겼다'
         elif self.dice01 < self.dice02:
-            return f'2번 주사위가 {self.min()}차이로 이겼다'
+            return f'2번 주사위가 {self.dice02-self.dice01}차이로 이겼다'
         else:
             return '비겼다'
 
 
 class Quiz08Generator(object):#원하는 범위의 정수에서 랜덤값 1개 추출
-    def __init__(self):
-        pass
+    def __init__(self, min, max):
+        self.min = min
+        self.max = max
+        self.essence = myRandom(self.min, self.max)
+
 
 class Quiz09RandomChoice(object):#803호에서 랜덤으로 1명 이름 추출
     def __init__(self):
         self.members = ['홍정명', '노홍주', '전종현', '정경준', '양정오',
                         '권혜민', '서성민', '조현국', '김한슬', '김진영',
-                        '심민혜' , '권솔이', '김지혜' , '하진희' , '최은아',
+                        '심민혜', '권솔이', '김지혜', '하진희', '최은아',
                         '최민서', '한성수', '김윤섭', '김승현',
                         '강 민', '최건일', '유재혁', '김아름', '장원종']
+    def choice(self):
+        return self.members[myRandom(0, 23)]
 
+
+class Quiz10Rps(object):
+    def __init__(self,player):
+        self.player = player
+        self.com = myRandom(0, 2)
+
+    def game(self):
+        c = self.com
+        p = self.player
+        if c-p == 2 or -1:
+            res = 'WIN'
+        elif c-p == 1 or -2:
+            res = 'LOSE'
+        elif c-p == 0:
+            res = 'DRAW'
+        return res
+
+    ''' 컴퓨터0(가위) / 게이머1(바위)(win) = -1
+     컴퓨터1(바위) / 게이머2(보)(win) = -1
+     컴퓨터2(보) / 게이머0(가위)(win) = 2
+
+     컴퓨터0(가위) / 게이머2(보)(lose) = -2
+     컴퓨터1(바위) / 게이머0(가위)(lose) = 1
+    컴퓨터2(보) / 게이머1(바위) = 1 '''
+
+class Quiz11GetPrime(object):
+    def __init__(self):
+        pass
+class Quiz12LeapYear(object):
+    def __init__(self):
+        pass
+class Quiz13NumberGolf(object):
+    def __init__(self):
+        pass
+class Quiz14Lotto(object):
+    def __init__(self):
+        pass
+class Quiz15Bank(object): # 이름, 입금, 출금만 구현
+    def __init__(self):
+        pass
+class Quiz16Gugudan(object): # 책받침구구단
+    def __init__(self):
+        pass
 
 
 if __name__ == '__main__':
