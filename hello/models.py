@@ -1,64 +1,8 @@
 import random
+from dataclasses import dataclass
 
-def main():
-    while 1:
-        menu = input('0.Exit 1.계산기 2.BMI 계산기 3. 성적표 4.원넓이 계산기 5.월급(주급)계산기\n'
-                     ' 6.오토 성적표 7.주사위 8.랜덤값 1개추출(정수) 9.랜덤 1명이름 추출 10.가위 바위 보\n '
-                     '11. 소수 12.윤년 13. 숫자 스무고개 14.로또 15.은행 16.구구단')
 
-        if menu == '0':
-            break
 
-        elif menu == '1':
-            q1 = Quiz01Calculator()
-            print(f'{q1.calc()}')
-        elif menu == '2':
-            q2 = Quiz02BmiCalc()
-            print(f'{q2.bmicalc()}')
-        elif menu == '3':
-            q3 = Quiz03Grade()
-            print(f'{q3.myGrade()}')
-        elif menu == '4':
-            q4 = Quiz04Circle()
-            print(f'{q4.circle()}')
-        elif menu == '5':
-            q5 = Quiz05Salary()
-            print(f'{q5.salary()}')
-        elif menu == '6':
-            for i in ['김유신','강감찬','유관순','윤봉길','신사임당']:
-                print(i)
-        elif menu == '7':
-            q7 = Quiz07Dice()
-            print(f'{q7.dice()}')
-        elif menu == '8':
-            q8 = Quiz08Generator()
-            print(f'{q8.generator()}')
-        elif menu == '9':
-            q9 = Quiz09RandomChoice()
-            print(f'{q9.choice()}')
-        elif menu == '10':
-            q10 = Quiz10Rps()
-            print(f'{q10.game()}')
-        elif menu == '11':
-            q11=Quiz11GetPrime()
-            print(f'{q11.prime()}')
-        elif menu == '12':
-            q12 = Quiz12LeapYear()
-            print(f'{q12.leap()}')
-        elif menu == '13':
-            q13 = Quiz13NumberGolf()
-            print(f'{q13.game()}')
-        elif menu == '14':
-            q14 = Quiz14Lotto()
-            print(f'{q14.lotto}')
-        elif menu == '15':
-            q15 = Quiz15Bank()
-            print(f'{q15.bank()}')
-        elif menu == '16':
-            q16 = Quiz16Gugudan()
-            print(f'{q16.gugudan()}')
-        else:
-            print('숫자 똑바로 적어라')
 
 class Quiz01Calculator(object):
     def calc(self):
@@ -78,29 +22,25 @@ class Quiz01Calculator(object):
         return res
 
 class Quiz02BmiCalc(object):
-
-    def bmicalc(self):
-        name=input('이름')
-        inch=int(input('키'))
-        weight=int(input('몸무게'))
-        bmi=weight/( inch * inch /10000)
+    @staticmethod
+    def bmicalc(member):
+        this=member
+        bmi=this.weight/( this.inch * this.inch /10000)
         if bmi <= 18.0:
-            res= '저체중'
+            res= f'BMI 지수:{bmi}\n 결과: 저체중'
         elif bmi <= 22.9:
-            res= '정상'
+            res= f'BMI 지수:{bmi}\n 결과: 정상'
         elif bmi <= 23.0:
-            res= '과체중'
+            res= f'BMI 지수:{bmi}\n 결과: 과체중'
         elif bmi <= 24.9:
-            res= '위험 체중'
+            res= f'BMI 지수:{bmi}\n 결과: 위험체중'
         elif bmi <= 29.9:
-            res= '1단계 비만'
+            res= f'BMI 지수:{bmi}\n 결과: 1단계 비만'
         elif bmi <= 34.9:
-            res= '2단계 비만'
+            res= f'BMI 지수:{bmi}\n 결과: 2단계 비만'
         elif bmi < 35:
-            res= '고도 비만'
-        else:
-            res= '똑바로 적어라'
-        return f'이름:{name}\n Bmi지수: {bmi}\n 결과: {res}'
+            res= f'BMI 지수:{bmi}\n 결과: 고도 비만'
+        return f'{res}'
 
 class Quiz03Grade(object):
     def myGrade(self):
@@ -331,5 +271,4 @@ class Quiz16Gugudan(object): # 책받침구구단
             res += '\n'
         return res
 
-if __name__ == '__main__':
-    main()
+
