@@ -281,15 +281,16 @@ class Quiz13NumberGolf(object):
 
     def game(self):
         st = self.static
-        print(st)
+        count=0
         while 1:
             se = int(input('숫자!'))
             if st == se:
-                res = '정답'
-                return res
+                return f'정답\n 틀린횟수:{count}'
             elif st > se:
+                count += 1
                 print('업')
             elif st < se:
+                count += 1
                 print('아래')
 
 class Quiz14Lotto(object):
