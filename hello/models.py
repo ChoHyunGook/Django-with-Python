@@ -60,10 +60,7 @@ def main():
         else:
             print('숫자 똑바로 적어라')
 
-
-
 class Quiz01Calculator(object):
-
     def calc(self):
         n1=int(input('첫번째 숫자'))
         n2=int(input('두번째 숫자'))
@@ -209,12 +206,11 @@ class Quiz07Dice(object):
                 return '종료'
             if start==1:
                 if dice1 > dice2:
-                    res= f'1번 주사위{dice1}\n 2번주사위:{dice2}\n 1번 주사위가 {dice1 - dice2}차이로 이겼다'
+                    print(f'1번 주사위{dice1}\n 2번주사위:{dice2}\n 1번 주사위가 {dice1 - dice2}차이로 이겼다')
                 elif dice1 < dice2:
-                    res= f'1번 주사위: {dice1}\n 2번주사위: {dice2}\n2번 주사위가 {dice2-dice1}차이로 이겼다'
+                    print(f'1번 주사위: {dice1}\n 2번주사위: {dice2}\n2번 주사위가 {dice2-dice1}차이로 이겼다')
                 else:
-                    res= '비겼다'
-                return res
+                    print('비겼다')
 
 class Quiz08Generator(object):#원하는 범위의 정수에서 랜덤값 1개 추출
     def generator(self):
@@ -233,12 +229,9 @@ class Quiz09RandomChoice(object):#803호에서 랜덤으로 1명 이름 추출
         return self.members[myRandom(0, 23)]
 
 class Quiz10Rps(object):
-    def __init__(self):
-        self.com = myRandom(0, 2)
-
     def game(self):
         while 1:
-            c = self.com
+            c = myRandom(0, 2)
             p = int(input('0.가위 1.바위 2.보 3.EXIT'))
             if p == 3:
                 return 'EXIT'
