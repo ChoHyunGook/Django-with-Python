@@ -40,7 +40,7 @@ class Quiz02BmiCalc(object):
             res= f'BMI 지수:{bmi}\n 결과: 2단계 비만'
         elif bmi < 35:
             res= f'BMI 지수:{bmi}\n 결과: 고도 비만'
-        return f'{res}'
+        return res
 
 class Quiz03Grade(object):
     def myGrade(self):
