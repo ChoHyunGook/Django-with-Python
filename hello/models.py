@@ -55,7 +55,7 @@ def main():
             q15 = Quiz15Bank()
             print(f'{q15.bank()}')
         elif menu == '16':
-            q16 = Quiz16Gugudan
+            q16 = Quiz16Gugudan()
             print(f'{q16.gugudan()}')
         else:
             print('숫자 똑바로 적어라')
@@ -255,17 +255,16 @@ class Quiz10Rps(object):
 
 class Quiz11GetPrime(object):
     def prime(self):
-        a = int(input('최소값'))
-        b= int(input('최대값'))
+        a = int(input('최대값'))
         res=''
-        for i in range(a, b):
+        for i in range(2, a):
             num = 0
             for j in range(2, i+1):
                 if i % j == 0:
                     num += 1
             if num == 1:
                 res +=  str(i) +'\t'
-                return res
+        return res
 
 class Quiz12LeapYear(object):
     def leap(self):
