@@ -10,74 +10,53 @@ def main():
             break
 
         elif menu == '1':
-            calc = Quiz01Calculator(int(input('첫번째 숫자')), int(input('두번째 숫자')), input('연산자'))
-            print('*'*30)
-            print(f'{calc.num1}{calc.op}{calc.num2}={calc.res()}')
-
+            q1 = Quiz01Calculator()
+            print(f'{q1.calc()}')
         elif menu == '2':
-            bmi = Quiz02BmiCalc(input('이름'), float(input('키')), float(input('몸무게')))
-            print('*'*30)
-            print(f'이름: {bmi.name}\n BMI지수: {bmi.res()}\n 결과: {bmi.result()}')
-
+            q2 = Quiz02BmiCalc()
+            print(f'{q2.bmicalc()}')
         elif menu == '3':
-            grade = Quiz03Grade(input('이름'), int(input('국어점수')), int(input('영어점수')), int(input('수학점수')))
-
-            print(f'########## 성적표 ########\n '
-                  f'* 이름: {grade.name}\n  '
-                  f'* > 국어: {grade.kor}점\n  '
-                  f'* > 영어: {grade.eng}점\n" '
-                  f'* > 수학: {grade.math}점\n '
-                  f'* 총점: {grade.total()}점\n '
-                  f'* 평균(정수): {grade.avg()}점\n'
-                  f'* 학점: {grade.getGrade()}\n'
-                  f'합격여부: {grade.gradePass()}\n'
-                  '* #######################')
-
+            q3 = Quiz03Grade()
+            print(f'{q3.myGrade()}')
         elif menu == '4':
-            circle = Quiz04Circle(float(input('원주율')), float(input('반지름')))
-            print(f'원주율:{circle.pi}\n 반지름:{circle.half}\n 원넓이:{circle.res()}')
-
+            q4 = Quiz04Circle()
+            print(f'{q4.circle()}')
         elif menu == '5':
-            week = Quiz05Week(input('성함'), int(input('일하는 시간')), int(input('일하는 날짜')), int(input('시급')))
-            print(f'{week.name}님의\n일급:{week.oneday()}\n 월급:{week.salary()}')
-
+            q5 = Quiz05Salary()
+            print(f'{q5.salary()}')
         elif menu == '6':
             for i in ['김유신','강감찬','유관순','윤봉길','신사임당']:
                 print(i)
-
         elif menu == '7':
-            dice = Quiz07Dice()
-            print(f'주사위 1 :{dice.dice01}\n '
-                  f'주사위 2 :{dice.dice02}\n'
-                  f' {dice.vs()}')
-
+            q7 = Quiz07Dice()
+            print(f'{q7.dice()}')
         elif menu == '8':
-            q8 = Quiz08Generator(int(input('최소값')), int(input('최대값')))
-            print(f'{q8.essence}')
-
+            q8 = Quiz08Generator()
+            print(f'{q8.generator()}')
         elif menu == '9':
             q9 = Quiz09RandomChoice()
             print(f'{q9.choice()}')
-
         elif menu == '10':
             q10 = Quiz10Rps()
             print(f'{q10.game()}')
         elif menu == '11':
-            q11=Quiz11GetPrime(int(input('최소구간')),int(input('최대구간')))
+            q11=Quiz11GetPrime()
             print(f'{q11.prime()}')
         elif menu == '12':
-            q12 = Quiz12LeapYear(int(input('년도')))
+            q12 = Quiz12LeapYear()
             print(f'{q12.leap()}')
         elif menu == '13':
             q13 = Quiz13NumberGolf()
             print(f'{q13.game()}')
         elif menu == '14':
-            print()
+            q14 = Quiz14Lotto()
+            print(f'{q14.lotto}')
         elif menu == '15':
-            print()
+            q15 = Quiz15Bank()
+            print(f'{q15.bank()}')
         elif menu == '16':
-            print()
-
+            q16 = Quiz16Gugudan
+            print(f'{q16.gugudan()}')
         else:
             print('숫자 똑바로 적어라')
 
@@ -85,183 +64,163 @@ def main():
 
 class Quiz01Calculator(object):
 
-    def __init__(self, num1, num2, op):
-        self.num1= num1
-        self.num2 = num2
-        self.op = op
-
-    def add (self):
-        return self.num1 + self.num2
-
-    def min (self):
-        return self.num1 - self.num2
-
-    def mul (self):
-        return self.num1 * self.num2
-
-    def div (self):
-        return self.num1 / self.num2
-
-    def rest (self):
-        return self.num1 % self.num2
-
-    def res(self):
-            if self.op == '+':
-                return self.add()
-            elif self.op == '-':
-                return self.min()
-            elif self.op == '*':
-                return self.mul()
-            elif self.op == '/':
-                return self.div()
-            elif self.op == '%':
-                return self.rest()
-            else:
-                return '똑바로 적어라'
+    def calc(self):
+        n1=int(input('첫번째 숫자'))
+        n2=int(input('두번째 숫자'))
+        op=input('연산자')
+        if op == '+':
+            res = n1+n2
+        elif op == '-':
+            res = n1-n2
+        elif op == '*':
+            res = n1*n2
+        elif op == '/':
+            res = n1/n2
+        elif op == '%':
+            res = n1%n2
+        return res
 
 class Quiz02BmiCalc(object):
 
-    def __init__(self, name, inch, weight):
-        self.name = name
-        self.inch = inch
-        self.weight = weight
-
-    def res (self):
-        return self.weight/(self.inch * self.inch / 10000)
-
-    def result(self):
-        if self.res() <= 18.0:
-            return '저체중'
-        elif self.res() <= 22.9:
-            return '정상'
-        elif self.res() <= 23.0:
-            return '과체중'
-        elif self.res() <= 24.9:
-            return '위험 체중'
-        elif self.res() <= 29.9:
-            return '1단계 비만'
-        elif self.res() <= 34.9:
-            return '2단계 비만'
-        elif self.res() < 35:
-            return '고도 비만'
+    def bmicalc(self):
+        name=input('이름')
+        inch=int(input('키'))
+        weight=int(input('몸무게'))
+        bmi=weight/( inch * inch /10000)
+        if bmi <= 18.0:
+            res= '저체중'
+        elif bmi <= 22.9:
+            res= '정상'
+        elif bmi <= 23.0:
+            res= '과체중'
+        elif bmi <= 24.9:
+            res= '위험 체중'
+        elif bmi <= 29.9:
+            res= '1단계 비만'
+        elif bmi <= 34.9:
+            res= '2단계 비만'
+        elif bmi < 35:
+            res= '고도 비만'
         else:
-            return '똑바로 적어라'
+            res= '똑바로 적어라'
+        return f'이름:{name}\n Bmi지수: {bmi}\n 결과: {res}'
 
 class Quiz03Grade(object):
-
-    def __init__(self, name, kor, eng, math):
-        self.name = name
-        self.kor = kor
-        self.eng = eng
-        self.math = math
-
-    def total (self):
-        return self.kor + self.eng + self.math
-
-    def avg (self):
-        return self.total()/3
-
-    def getGrade(self):
-        if self.avg() >= 90:
-            return 'A'
-        elif self.avg() >= 80:
-            return 'B'
-        elif self.avg() >= 70:
-            return 'C'
-        elif self.avg() >= 65:
-            return 'D'
-        elif self.avg() >= 60:
-            return 'E'
+    def myGrade(self):
+        name=input('이름')
+        kor=int(input('국어점수'))
+        eng=int(input('영어점수'))
+        math=int(input('수학점수'))
+        total=kor+eng+math
+        avg=total/3
+        if avg >= 90:
+            grade= 'A'
+        elif avg >= 80:
+            grade= 'B'
+        elif avg >= 70:
+            grade= 'C'
+        elif avg >= 65:
+            grade= 'D'
+        elif avg >= 60:
+            grade= 'E'
         else:
-            return 'F'
+            grade= 'F'
+            if grade == 'F':
+                grpass='불합격'
+            else:
+                grpass='합격'
 
-    def gradePass(self):
-        if self.getGrade() == 'F':
-            return '불합격'
-        else:
-            return '합격'
+        return print(f'########## 성적표 ########\n '
+                  f'* 이름: {name}\n  '
+                  f'* > 국어: {kor}점\n  '
+                  f'* > 영어: {eng}점\n" '
+                  f'* > 수학: {math}점\n '
+                  f'* 총점: {total}점\n '
+                  f'* 평균(정수): {avg}점\n'
+                  f'* 학점: {grade}\n'
+                  f'합격여부: {grpass}\n'
+                  '* #######################')
 
 class Quiz04Circle(object):
+    def circle (self):
+        pi=float(input('원주율'))
+        half=float(input('반지름'))
+        return f'원주율 : {pi}\n 반지름 : {half}\n 원넓이 : {pi*half*half}'
 
-    def __init__(self, pi, half):
-        self.pi=pi
-        self.half=half
+class Quiz05Salary(object):
 
-    def res (self):
-        return self.pi*self.half*self.half
+    def salary(self):
+        name=input('이름')
+        time=int(input('일하는 시간'))
+        day=int(input('일하는 날짜'))
+        money=int(input('시급'))
+        oneday=time*money
+        salary=oneday*day
 
-class Quiz05Week(object):
-
-    def __init__(self,name,time,money,day):
-        self.name = name
-        self.time = time
-        self.money = money
-        self.day = day
-
-    def oneday (self):
-        return self.time * self.money
-
-    def salary (self):
-        return self.oneday() * self.day
+        return print(f'{name}님의\n 일급: {oneday}원\n 월급: {salary}\n')
 
 class Quiz06GradeAuto(object):
-
-    def __init__(self, name, kor, eng, math):
-        self.name = name
-        self.kor = kor
-        self.eng = eng
-        self.math = math
-
-    def total (self):
-        return self.kor + self.eng + self.math
-
-    def avg (self):
-        return self.total()/3
-
-    def getGrade(self):
-        if self.avg()>=90:
-            return 'A'
-        elif self.avg()>=80:
-            return 'B'
-        elif self.avg()>=70:
-            return 'C'
-        elif self.avg()>=65:
-            return 'D'
-        elif self.avg()>=60:
-            return 'E'
+    def myGrade(self):
+        name=input('이름')
+        kor=int(input('국어점수'))
+        eng=int(input('영어점수'))
+        math=int(input('수학점수'))
+        total=kor+eng+math
+        avg=total/3
+        if avg >= 90:
+            grade= 'A'
+        elif avg >= 80:
+            grade= 'B'
+        elif avg >= 70:
+            grade= 'C'
+        elif avg >= 65:
+            grade= 'D'
+        elif avg >= 60:
+            grade= 'E'
         else:
-            return 'F'
+            grade= 'F'
+            if grade == 'F':
+                grpass='불합격'
+            else:
+                grpass='합격'
 
-    def gradePass(self):
-        if self.getGrade() == 'F':
-            return '불합격'
-        else:
-            return '합격'
+        return print(f'########## 성적표 ########\n '
+                  f'* 이름: {name}\n  '
+                  f'* > 국어: {kor}점\n  '
+                  f'* > 영어: {eng}점\n" '
+                  f'* > 수학: {math}점\n '
+                  f'* 총점: {total}점\n '
+                  f'* 평균(정수): {avg}점\n'
+                  f'* 학점: {grade}\n'
+                  f'합격여부: {grpass}\n'
+                  '* #######################')
 
 @staticmethod
 def myRandom(start, end):
     return random.randint(start, end)
 
 class Quiz07Dice(object):
-    def __init__(self):
-        self.dice01 = myRandom(1, 6)
-        self.dice02 = myRandom(1, 6)
-
-    def vs(self):
-        if self.dice01 > self.dice02:
-            return f'1번 주사위가 {self.dice01 - self.dice02}차이로 이겼다'
-        elif self.dice01 < self.dice02:
-            return f'2번 주사위가 {self.dice02-self.dice01}차이로 이겼다'
-        else:
-            return '비겼다'
-
+    def dice(self):
+        while 1:
+            dice1 = myRandom(1, 6)
+            dice2 = myRandom(1, 6)
+            start=int(input('0. 종료 1. 스타트'))
+            if start==0:
+                return '종료'
+            if start==1:
+                if dice1 > dice2:
+                    res= f'1번 주사위{dice1}\n 2번주사위:{dice2}\n 1번 주사위가 {dice1 - dice2}차이로 이겼다'
+                elif dice1 < dice2:
+                    res= f'1번 주사위: {dice1}\n 2번주사위: {dice2}\n2번 주사위가 {dice2-dice1}차이로 이겼다'
+                else:
+                    res= '비겼다'
+                return res
 
 class Quiz08Generator(object):#원하는 범위의 정수에서 랜덤값 1개 추출
-    def __init__(self, min, max):
-        self.min = min
-        self.max = max
-        self.essence = myRandom(self.min, self.max)
-
+    def generator(self):
+        min=int(input('최소값'))
+        max=int(input('최대값'))
+        return myRandom(min, max)
 
 class Quiz09RandomChoice(object):#803호에서 랜덤으로 1명 이름 추출
     def __init__(self):
@@ -273,16 +232,15 @@ class Quiz09RandomChoice(object):#803호에서 랜덤으로 1명 이름 추출
     def choice(self):
         return self.members[myRandom(0, 23)]
 
-
 class Quiz10Rps(object):
     def __init__(self):
         self.com = myRandom(0, 2)
 
     def game(self):
         while 1:
-            c= self.com
+            c = self.com
             p = int(input('0.가위 1.바위 2.보 3.EXIT'))
-            if p==3:
+            if p == 3:
                 return 'EXIT'
             if c-p == 2 or c-p == -1:
                 print(f'플레이어: {p}\n 컴퓨터:{c}\n 결과:WIN')
@@ -303,28 +261,22 @@ class Quiz10Rps(object):
      컴퓨터2(보) / 게이머1(바위)(lose) = 1 '''
 
 class Quiz11GetPrime(object):
-    def __init__(self,area,area2):
-        self.area=area
-        self.area2=area2
-
-
     def prime(self):
-        a = self.area
-        b= self.area2
-        for i in range(a, b+1):
+        a = int(input('최소값'))
+        b= int(input('최대값'))
+        res=''
+        for i in range(a, b):
             num = 0
-            for j in range(2, i):
+            for j in range(2, i+1):
                 if i % j == 0:
-                    num = 1
-            if num == 0:
-                res= f'{i}'
+                    num += 1
+            if num == 1:
+                res +=  str(i) +'\t'
                 return res
 
 class Quiz12LeapYear(object):
-    def __init__(self,year):
-        self.year=year
     def leap(self):
-        y=self.year
+        y=int(input('년도를 입력하세요'))
         if (y % 4 == 0 and not y % 100 == 0 or y % 400 == 0):
             res='윤년'
         else:
@@ -348,17 +300,43 @@ class Quiz13NumberGolf(object):
             elif st < se:
                 print('아래')
 
-
 class Quiz14Lotto(object):
     def __init__(self):
-        pass
-class Quiz15Bank(object): # 이름, 입금, 출금만 구현
-    def __init__(self):
-        pass
-class Quiz16Gugudan(object): # 책받침구구단
-    def __init__(self):
-        pass
+        self.lotto = random.sample(range(1, 45), 6)
+        self.lotto.sort()
 
+class Quiz15Bank(object): # 이름, 입금, 출금만 구현
+    def bank(self):
+        total = 100000
+        while 1:
+            menu = int(input('사용하실 메뉴를 선택해 주세요\n'
+                  '0.종료 1.잔액조회 2.현금인출 3.입금'))
+            if menu == 0:
+                return ('종료')
+            if menu == 1:
+                print(f'{total}')
+            elif menu == 2:
+                output = int(input('출금하실 금액'))
+                if total >= output:
+                    total = total-output
+                    print(f'인출금액: {output}\n 잔액: {total}')
+                elif total < output:
+                    print('잔액이 부족합니다.')
+            elif menu == 3:
+                inp = int(input('입금하실 금액'))
+                total = inp + total
+                print(f'입금 금액:{inp} 잔액:{total}')
+
+class Quiz16Gugudan(object): # 책받침구구단
+    def gugudan(self):
+        res = ""
+        for i in [2, 6]:
+            for j in range(1, 10):
+                for k in range(0, 4):
+                    res += f'{i + k} * {j} = {(i + k) * j}\t'
+                res += '\n'
+            res += '\n'
+        return res
 
 if __name__ == '__main__':
     main()
