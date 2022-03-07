@@ -1,8 +1,5 @@
-from numpy.random.mtrand import random
-
-from hello import Member
-from hello.domains import myRandom, my803
-
+from hello.domains import myRandom, my803, Member
+import random
 
 class Quiz00:
     def quiz00calculator(self):
@@ -55,7 +52,7 @@ class Quiz00:
             elif dice1 < dice2:
                 res = f'1번 주사위: {dice1}\n 2번주사위: {dice2}\n2번 주사위가 {dice2 - dice1}차이로 이겼다'
             else:
-                res = '비겼다'
+                res = f'1번주사위: {dice1}\n 2번주사위: {dice2}\n 비겼다'
             return print(res)
 
     def quiz03rps(self):
@@ -82,8 +79,9 @@ class Quiz00:
      컴퓨터2(보) / 게이머1(바위)(lose) = 1 '''
 
     def quiz04leap(self):
-        y = myRandom(0, 2022)
-        return print(f'{y}년은 윤년') if (y % 4 == 0 and not y % 100 == 0 or y % 400 == 0) else  print(f'{y}년은 평년')
+        y = myRandom(1900, 2022)
+        s=f'{y}년은 윤년' if (y % 4 == 0 and not y % 100 == 0 or y % 400 == 0) else f'{y}년은 평년'
+        return print(s)
 
     def quiz05grade(self):
         name = my803()
@@ -92,6 +90,7 @@ class Quiz00:
         math = myRandom(0, 100)
         total = kor + eng + math
         avg = total / 3
+
         if avg >= 90:
             grade = 'A'
         elif avg >= 80:
@@ -104,10 +103,12 @@ class Quiz00:
             grade = 'E'
         else:
             grade = 'F'
-            if grade == 'F':
-                grpass = '불합격'
-            else:
-                grpass = '합격'
+
+        if grade =='F':
+            grpass = '불합격'
+        else:
+            grpass = '합격'
+
 
         return print(f'########## 성적표 ########\n '
                      f'* 이름: {name}\n  '
@@ -125,29 +126,33 @@ class Quiz00:
         return print(members[myRandom(0, 23)])
 
     def quiz07lotto(self):
+
         lotto = random.sample(range(1, 45), 6)
         return lotto.sort()
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
-        total = 100000
-        while 1:
-            menu = int(input('사용하실 메뉴를 선택해 주세요\n'
-                             '0.종료 1.잔액조회 2.현금인출 3.입금'))
-            if menu == 0:
-                return ('종료')
-            if menu == 1:
-                print(f'{total}')
-            elif menu == 2:
-                output = int(input('출금하실 금액'))
-                if total >= output:
-                    total = total - output
-                    print(f'인출금액: {output}\n 잔액: {total}')
-                elif total < output:
-                    print('잔액이 부족합니다.')
-            elif menu == 3:
-                inp = int(input('입금하실 금액'))
-                total = inp + total
-                print(f'입금 금액:{inp} 잔액:{total}')
+        ''' total = 100000
+                while 1:
+                    menu = int(input('사용하실 메뉴를 선택해 주세요\n'
+                                     '0.종료 1.잔액조회 2.현금인출 3.입금'))
+                    if menu == 0:
+                        return ('종료')
+                    if menu == 1:
+                        print(f'{total}')
+                    elif menu == 2:
+                        output = int(input('출금하실 금액'))
+                        if total >= output:
+                            total = total - output
+                            print(f'인출금액: {output}\n 잔액: {total}')
+                        elif total < output:
+                            print('잔액이 부족합니다.')
+                    elif menu == 3:
+                        inp = int(input('입금하실 금액'))
+                        total = inp + total
+                        print(f'입금 금액:{inp} 잔액:{total}')'''
+
+        return Account.main()
+
 
     def quiz09gugudan(self):  # 책받침구구단
         res = ""
@@ -158,3 +163,64 @@ class Quiz00:
                 res += '\n'
             res += '\n'
         return print(res)
+
+
+class Account(object):
+    def __init__(self,name, account_number, money):
+        self.BANK_NAME = '비트은행'
+        self.name = my803()[myRandom(0,23)] if name == None else name
+        self.account_number=self.creat_account_number() if account_number ==None else account_number
+        self.money=myRandom(100,999) if money == None else money
+
+    def to_String(self):
+        return f'은행: {self.BANK_NAME}\n' \
+               f'입금자:{self.name}\n' \
+               f'계좌번호:{self.account_number}\n' \
+               f'입금금액:{int(self.money)}'
+
+    @staticmethod
+    def creat_account_number():
+        '''ls=[str(myRandom(0,10)) for i in range(3)]
+        ls.append("-")
+        ls += [str(myRandom(0, 10)) for i in range(2)]
+        ls.append("-")
+        ls += [str(myRandom(0, 10)) for i in range(6)]'''
+        return "".join(["-" if i==3 or i==6 else str(myRandom(0, 10)) for i in range(13)])
+
+    def del_account(self,ls,accout_number):
+        for i,j in enumerate(ls):
+            if j.account_number==accout_number:
+                del ls[i]
+
+    @staticmethod
+    def main():
+        ls=[]
+        while 1:
+            menu= input('0.종료 1. 계좌계설 2.계좌목록 3. 입금 4. 출금 5. 계좌해지')
+            if menu == '0':
+                break
+            if menu == '1':
+                acc=Account(None,None,None)
+                print(f'{acc.to_String()}가 개설되었습니다.')
+                ls.append(acc)
+            elif menu == '2':
+                a='\n'.join(i.to_String() for i in ls)
+                print(a)
+            elif menu == '3':
+                account_number=input('입금할 계좌번호')
+                deposit=input('입금하실 금액')
+                for i,j in enumerate(ls):
+                    if j.account_number ==account_number:
+                        pass
+
+
+            elif menu == '4':
+                account_number = input('출금할 계좌번호')
+                money=input('출금하실 금액')
+
+            elif menu == '5':
+                account_number = input('탈퇴할 계좌번호')
+
+            else:
+                print('Wrong Numbver... Try Again')
+                continue

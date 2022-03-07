@@ -31,7 +31,7 @@ class Member:
 
 @staticmethod
 def myRandom(start, end):
-    return random.randint(start, end)
+    return random.randint(start, end-1)
 
 @staticmethod
 def my803():
