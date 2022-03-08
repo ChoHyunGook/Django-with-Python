@@ -187,16 +187,45 @@ class Account(object):
         ls += [str(myRandom(0, 10)) for i in range(6)]'''
         return "".join(["-" if i==3 or i==6 else str(myRandom(0, 10)) for i in range(13)])
 
-    def del_account(self,ls,accout_number):
+    @staticmethod
+    def del_account(ls,accout_number):
         for i,j in enumerate(ls):
             if j.account_number==accout_number:
                 del ls[i]
 
     @staticmethod
+    def find_account(ls,account_number):
+       '''return ''.join([j.to_String() if j.account_number==account_number else '해당계좌가 없습니다' for i,j in enumerate(ls)])'''
+       for i,j in enumerate(ls):
+            if j.account_number==account_number:
+                ls[i].to_String()
+                return ls[i]
+
+
+    @staticmethod
+    def deposit_money(ls,account_number,deposit):
+        for i,j in enumerate(ls):
+            if j.account_number == account_number:
+                  ls[i].money += deposit
+                  return ls[i]
+
+
+
+    @staticmethod
+    def minus_money(ls,account_number,minus):
+        for i, j in enumerate(ls):
+            if j.account_number == account_number:
+                ls[i].money -= minus
+                return ls[i]
+
+
+
+
+    @staticmethod
     def main():
         ls=[]
         while 1:
-            menu= input('0.종료 1. 계좌계설 2.계좌목록 3. 입금 4. 출금 5. 계좌해지')
+            menu= input('0.종료 1. 계좌계설 2.계좌목록 3. 입금 4. 출금 5. 계좌해지 6. 계좌조회')
             if menu == '0':
                 break
             if menu == '1':
@@ -207,19 +236,20 @@ class Account(object):
                 a='\n'.join(i.to_String() for i in ls)
                 print(a)
             elif menu == '3':
-                account_number=input('입금할 계좌번호')
-                deposit=input('입금하실 금액')
-                for i,j in enumerate(ls):
-                    if j.account_number ==account_number:
-                        pass
-
+                res=Account.deposit_money(ls,input('입금할 계좌번호'),int(input('입금하실 금액')))
+                print(f'{res.to_String()}')
 
             elif menu == '4':
-                account_number = input('출금할 계좌번호')
-                money=input('출금하실 금액')
+                res=Account.minus_money(ls,input('출금할 계좌번호'),int(input('출금하실 금액')))
+                print(f'{res.to_String()}')
 
             elif menu == '5':
-                account_number = input('탈퇴할 계좌번호')
+                Account.del_account(ls,input('탈퇴할 계좌번호'))
+                print(f'해지되셨습니다. 그동안 이용해주셔서 감사합니다')
+
+            elif menu == '6':
+                res=Account.find_account(ls,input('조회할 계좌번호'))
+                print(f'{res.to_String()}')
 
             else:
                 print('Wrong Numbver... Try Again')
