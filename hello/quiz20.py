@@ -1,7 +1,8 @@
 import urllib.request
-
+from pprint import pprint
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import pandas as pd
 
 
 class Quiz20:
@@ -23,33 +24,83 @@ class Quiz20:
         print(a2)
         return None
 
-    def quiz24zip(self) -> str:
-        url='https://music.bugs.co.kr/chart/track/realtime/total'
-        html_doc = urlopen(url)
-        soup = BeautifulSoup(html_doc, 'lxml')
+    @staticmethod
+    def quiz24zip() -> {}:
+        dict = {}
+        soup = BeautifulSoup(urlopen('https://music.bugs.co.kr/chart/track/realtime/total'), 'lxml')
+        cls_names=['artist', 'title']
+        # print(''.join(i for i in Quiz20.soup_(soup, 'p', 'class', [i for i in cls_names])))
+        a=[i for i in cls_names]
+        ls1 = Quiz20.soup_(soup, 'p', 'class', 'title')
+        ls2 = Quiz20.soup_(soup, 'p', 'class', 'artist')
+        #Quiz20.dict1(dict, ls1, ls2)
+        #Quiz20.dict2(dict,ls1,ls2)
+        for i, j in zip(ls1,ls2):
+            dict[i]=j
+        pprint(dict)
+        return dict
+
+        #url='https://music.bugs.co.kr/chart/track/realtime/total'
+        #html_doc = urlopen(url)
+        #soup = BeautifulSoup(html_doc, 'lxml')
         # print(soup.prettify())
-        artists=soup.find_all('p', {'class':"artist"})
-        artists=[i.get_text() for i in artists]
-        print(''.join(i for i in artists))
-        return None
+        #titles=soup.find_all('p',{'class':"title"})
+        #titles = [i.get_text() for i in titles]
+        #print(''.join(i for i in artists))
+
+    @staticmethod
+    def quiz27melon() -> {}:
+        dict = {}
+        soup = BeautifulSoup(urlopen(urllib.request.Request('https://www.melon.com/chart/index.htm?dayTime=2022031017',
+                                                            headers={'User-Agent': 'Mozilla/5.0'})).read(), 'lxml')
+        ls1 = Quiz20.soup_(soup, 'div', 'class', 'ellipsis rank01')
+        ls2 = Quiz20.soup_(soup, 'span', 'class', 'checkEllipsis')
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
+        pprint(dict)
+        return dict
+
+
+    @staticmethod
+    def dict1(dict,ls1,ls2)->{}:
+        for i in range(0, len(ls1)):
+            dict[ls1[i]] = ls2[i]
+        pprint(dict)
+
+    @staticmethod
+    def dict2(dict,ls1,ls2)->{}:
+        for i,j in enumerate(ls1):
+            dict[j] = ls2[i]
+        pprint(dict)
+
+
+    @staticmethod
+    def rank(soup)-> None:
+        for i, j in enumerate(['artist', 'title']):
+            for i, j in enumerate(Quiz20.soup_(soup, 'p', 'class', j)):
+                print(f'{i}위 : {j}')
+            print('#' * 100)
+
+
+    @staticmethod
+    def soup_(soup, point,deep_point,name)->[]:
+         return [i.get_text().strip() for i in soup.find_all(point,{deep_point:name})]
+
+
+
 
     def quiz25dictcom(self) -> str: return None
 
     def quiz26map(self) -> str: return None
 
-    def quiz27melon(self) -> str:
-        headers={'User-Agent':'Mozilla/5.0'}
-        url='https://www.melon.com/chart/index.htm?dayTime=2022030816'
-        req=urllib.request.Request(url,headers=headers)
-        soup = BeautifulSoup(urlopen(req).read(), 'lxml')
-        play_songs=soup.find_all('div', {'class':'ellipsis rank01'})
-        play_songs=[i.get_text() for i in play_songs]
-        print(''.join(i for i in play_songs))
-        return None
 
 
-        return None
 
-    def quiz28(self) -> str: return None
+    def quiz28dataframe(self) -> None:
+        dict = self.quiz24zip()
+        df =pd.DataFrame.from_dict(dict, orient='index')
+        print(df)
+        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
     def quiz29(self) -> str: return None
+
