@@ -32,6 +32,9 @@ class Member:
 @staticmethod
 def myRandom(start, end):
     return random.randint(start, end-1)
+@staticmethod
+def mySample(start, end):
+    return random.sample(start,end)
 
 @staticmethod
 def my803():

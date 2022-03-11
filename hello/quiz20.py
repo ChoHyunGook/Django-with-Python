@@ -1,8 +1,12 @@
+import random
 import urllib.request
 from pprint import pprint
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import pandas as pd
+
+from hello import Quiz00
+from hello.domains import myRandom, my803
 
 
 class Quiz20:
@@ -26,7 +30,6 @@ class Quiz20:
 
     @staticmethod
     def quiz24zip() -> {}:
-        dict = {}
         soup = BeautifulSoup(urlopen('https://music.bugs.co.kr/chart/track/realtime/total'), 'lxml')
         cls_names=['artist', 'title']
         # print(''.join(i for i in Quiz20.soup_(soup, 'p', 'class', [i for i in cls_names])))
@@ -35,10 +38,12 @@ class Quiz20:
         ls2 = Quiz20.soup_(soup, 'p', 'class', 'artist')
         #Quiz20.dict1(dict, ls1, ls2)
         #Quiz20.dict2(dict,ls1,ls2)
-        for i, j in zip(ls1,ls2):
-            dict[i]=j
-        pprint(dict)
-        return dict
+        dt = {i:j for i, j in zip(ls1,ls2)}
+        l = [i+j for i,j in zip(ls1,ls2)]
+        l2 = list(zip(ls1,ls2))
+        d1 = dict(zip(ls1,ls2))
+        pprint(dt)
+        return dt
 
         #url='https://music.bugs.co.kr/chart/track/realtime/total'
         #html_doc = urlopen(url)
@@ -49,16 +54,58 @@ class Quiz20:
         #print(''.join(i for i in artists))
 
     @staticmethod
+    def quiz25dictcom() -> str:
+        '''students = random.sample(my803(),5)
+        scores = (myRandom(0, 101) for i in range(5))
+        res=dict(zip(students, scores))
+        print (res)
+
+        student = random.sample(Quiz00.quiz06memberChoice(), 5)
+        score = (myRandom(0, 101) for i in range(5))
+        res1 = dict(zip(student, score))
+        print(res1)
+
+        ls =  random.sample(my803(),5)
+        ls1 = [myRandom(0, 101) for i in range(5)]
+        for i in range(5):
+            ls.append(Quiz00.quiz06memberChoice())
+            ls1.append(myRandom(0, 101))
+        res2=dict(zip(ls,ls1))
+        print(res2)'''
+
+        q = Quiz00
+        s = set(q.quiz06memberChoice() for i in range(5))
+        while len(s) !=5:
+            s.add(q.quiz06memberChoice())
+        students = list(s)
+        scores = (myRandom(0,101) for i in range(5))
+        #res = {i:j for i, j in zip(students, scores)}
+        result = dict(zip(students,scores))
+        #print(f'{res}')
+        print(f'{result}')
+        return result
+    def quiz26map(self) -> str: return None
+
+    @staticmethod
     def quiz27melon() -> {}:
         dict = {}
         soup = BeautifulSoup(urlopen(urllib.request.Request('https://www.melon.com/chart/index.htm?dayTime=2022031017',
                                                             headers={'User-Agent': 'Mozilla/5.0'})).read(), 'lxml')
         ls1 = Quiz20.soup_(soup, 'div', 'class', 'ellipsis rank01')
         ls2 = Quiz20.soup_(soup, 'span', 'class', 'checkEllipsis')
-        for i, j in zip(ls1, ls2):
-            dict[i] = j
-        pprint(dict)
-        return dict
+        dt={i:j for i, j in zip(ls1, ls2)}
+        pprint(dt)
+        return dt
+
+
+    def quiz28dataframe(self) -> None:
+        dict = self.quiz24zip()
+        df =pd.DataFrame.from_dict(dict, orient='index')
+        print(df)
+        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+
+    def quiz29(self) -> str: return None
+
 
 
     @staticmethod
@@ -83,24 +130,6 @@ class Quiz20:
 
 
     @staticmethod
-    def soup_(soup, point,deep_point,name)->[]:
+    def soup_(soup, point, deep_point, name)->[]:
          return [i.get_text().strip() for i in soup.find_all(point,{deep_point:name})]
-
-
-
-
-    def quiz25dictcom(self) -> str: return None
-
-    def quiz26map(self) -> str: return None
-
-
-
-
-    def quiz28dataframe(self) -> None:
-        dict = self.quiz24zip()
-        df =pd.DataFrame.from_dict(dict, orient='index')
-        print(df)
-        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
-
-    def quiz29(self) -> str: return None
 

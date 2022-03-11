@@ -120,10 +120,10 @@ class Quiz00:
                      f'* 학점: {grade}\n'
                      f'합격여부: {grpass}\n'
                      '* #######################')
-
-    def quiz06memberChoice(self):
+    @staticmethod
+    def quiz06memberChoice():
         members = my803()
-        return print(members[myRandom(0, 23)])
+        return members[myRandom(0, 23)]
 
     def quiz07lotto(self):
 
