@@ -7,7 +7,7 @@ import pandas as pd
 
 from hello import Quiz00
 from hello.domains import myRandom, my803
-
+import icecream as ic
 
 class Quiz20:
 
@@ -104,8 +104,25 @@ class Quiz20:
         print(df)
         df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
-    def quiz29(self) -> str: return None
 
+
+
+    '''다음결과 출력
+        a   b   c
+    1   1   3   5
+    2   2   4   6
+    '''
+
+    def quiz29_pandas_01(self) -> object:
+        d1=[]
+        d2=[]
+        columns=[chr(i) for i in range(97,100)]
+        [d2.append(i) if i % 2==0 else d1.append(i) for i in range(1,7)]
+        d = {'1': d1, '2': d2}
+        frame=pd.DataFrame.from_dict(d, orient='index',columns=columns)
+        print(frame)
+
+        return None
 
 
     @staticmethod
