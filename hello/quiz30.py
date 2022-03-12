@@ -1,6 +1,7 @@
 import pandas as pd
 from icecream import ic
 
+from hello import Quiz20
 from hello.domains import myRandom
 import random
 import string
@@ -14,10 +15,14 @@ class Quiz30:
                 3   7   8   9
                 4  10  11  12
         '''
+
     def quiz30_df_4_by_3(self) -> None:
-        d1 =[i for i in range(1,13)]
-        columns = [chr(i) for i in range(65, 68)]
+
+        columns = Quiz20.askicode(65,68)
+        d1 = [i for i in range(1, 13)]
         d2=[d1[i:i + 3] for i in range(0, len(d1), 3)]
+        Quiz30.random_cutter(i,(1,13),3)
+
 
         df = pd.DataFrame(d2, index=range(1, 5), columns=columns)
         # 위 식을 리스트결합 형태로 분해해서 조립하시오
@@ -33,9 +38,8 @@ class Quiz30:
                     1  56  83  80
     '''
     def quiz31_rand_2_by_3(self) -> str:
-        d = [myRandom(10, 100) for i in range(6)]
-        d1=[d[i:i +3] for i in range(0,len(d),3)]
-        df = pd.DataFrame(d1, index=range(0, 2), columns=range(0,3))
+        data=Quiz30.random_cutter(myRandom(10,100),6,3)
+        df = pd.DataFrame(data, index=range(0, 2), columns=range(0,3))
 
         ic(df)
         return None
@@ -59,8 +63,7 @@ class Quiz30:
         '''
 
     def quiz32_df_grade(self) -> str:
-        d=[myRandom(0,101) for i in range(40)]
-        d1 = [d[i:i + 4] for i in range(0, len(d), 4)]
+        data=Quiz30.cutter(myRandom(0,101),40,4)
         columns=['국어','영어','수학','사회']
         ls=[]
         for i in range(10):
@@ -68,7 +71,7 @@ class Quiz30:
             for j in range(5):
                 name += (str(random.choice(string.ascii_uppercase)))
             ls.append(name)
-        df = pd.DataFrame(d1, index=ls, columns=columns)
+        df = pd.DataFrame(data, index=ls, columns=columns)
         ic(df)
         return None
 
@@ -85,4 +88,10 @@ class Quiz30:
     def quiz38(self) -> str: return None
 
     def quiz39(self) -> str: return None
+
+    @staticmethod
+    def random_cutter(start,point,cutter):
+        d = [start for i in range(point)]
+        d1 = [d[i:i + cutter] for i in range(0, len(d), cutter)]
+        return d1
 

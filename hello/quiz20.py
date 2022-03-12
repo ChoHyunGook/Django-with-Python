@@ -116,7 +116,7 @@ class Quiz20:
     def quiz29_pandas_01(self) -> object:
         d1=[]
         d2=[]
-        columns=[chr(i) for i in range(97,100)]
+        columns=Quiz20.askicode(97,100)
         [d2.append(i) if i % 2==0 else d1.append(i) for i in range(1,7)]
         d = {'1': d1, '2': d2}
         frame=pd.DataFrame.from_dict(d, orient='index',columns=columns)
@@ -150,3 +150,7 @@ class Quiz20:
     def soup_(soup, point, deep_point, name)->[]:
          return [i.get_text().strip() for i in soup.find_all(point,{deep_point:name})]
 
+    @staticmethod
+    def askicode(start,end):
+        columns = [chr(i) for i in range(start, end)]
+        return columns
