@@ -21,8 +21,6 @@ class Quiz30:
         columns = Quiz20.askicode(65,68)
         d1 = [i for i in range(1, 13)]
         d2=[d1[i:i + 3] for i in range(0, len(d1), 3)]
-        Quiz30.random_cutter(i,(1,13),3)
-
 
         df = pd.DataFrame(d2, index=range(1, 5), columns=columns)
         # 위 식을 리스트결합 형태로 분해해서 조립하시오
@@ -38,7 +36,7 @@ class Quiz30:
                     1  56  83  80
     '''
     def quiz31_rand_2_by_3(self) -> str:
-        data=Quiz30.random_cutter(myRandom(10,100),6,3)
+        data=Quiz30.random_cutter(10,100,6,3)
         df = pd.DataFrame(data, index=range(0, 2), columns=range(0,3))
 
         ic(df)
@@ -63,14 +61,15 @@ class Quiz30:
         '''
 
     def quiz32_df_grade(self) -> str:
-        data=Quiz30.cutter(myRandom(0,101),40,4)
+        data=Quiz30.random_cutter(0,101,40,4)
         columns=['국어','영어','수학','사회']
         ls=[]
-        for i in range(10):
+        '''for i in range(10):
             name=""
             for j in range(5):
                 name += (str(random.choice(string.ascii_uppercase)))
-            ls.append(name)
+            ls.append(name)'''
+        [''.join([str(random.choice(string.ascii_uppercase)) for j in range(5)]) for i in range(10)]
         df = pd.DataFrame(data, index=ls, columns=columns)
         ic(df)
         return None
@@ -90,8 +89,7 @@ class Quiz30:
     def quiz39(self) -> str: return None
 
     @staticmethod
-    def random_cutter(start,point,cutter):
-        d = [start for i in range(point)]
+    def random_cutter(start,end,point,cutter):
+        d = [myRandom(start,end) for i in range(point)]
         d1 = [d[i:i + cutter] for i in range(0, len(d), cutter)]
         return d1
-
