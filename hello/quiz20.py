@@ -7,7 +7,7 @@ import pandas as pd
 
 from hello import Quiz00
 from hello.domains import myRandom, my803
-import icecream as ic
+from icecream import ic
 
 class Quiz20:
 
@@ -114,13 +114,18 @@ class Quiz20:
     '''
 
     def quiz29_pandas_01(self) -> object:
+        d={'a':[1,2],'b':[3,4],'c':[5,6]}
+        df=pd.DataFrame
+
         d1=[]
         d2=[]
         columns=Quiz20.askicode(97,100)
         [d2.append(i) if i % 2==0 else d1.append(i) for i in range(1,7)]
-        d = {'1': d1, '2': d2}
-        frame=pd.DataFrame.from_dict(d, orient='index',columns=columns)
-        print(frame)
+        d = ['1','2']
+        d1 =[d1,d2]
+        d2=dict(zip(d,d1))
+        frame=pd.DataFrame.from_dict(d2, orient='index',columns=columns)
+        ic(frame)
 
         return None
 
