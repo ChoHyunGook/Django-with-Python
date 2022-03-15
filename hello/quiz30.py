@@ -138,6 +138,9 @@ class Quiz30:
         cho_scores=grade_df.loc['조현국']
         ic(type(cho_scores))
         ic(cho_scores)
+        cho_scores_do=grade_df.loc[['조현국']]
+        ic(type(cho_scores_do))
+        ic(cho_scores_do)
 
 
 

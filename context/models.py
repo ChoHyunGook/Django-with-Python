@@ -4,12 +4,12 @@ import pandas as pd
 
 class Model:
     def __init__(self):
-        self.ds =Dataset
+        self.ds =Dataset()
         this = self.ds
         this.dname='./data/'
         this.sname='./save/'
 
-    def new_model(self, fname)->object:
+    def new_model(self,fname)->object:
         this=self.ds
         # index_col=0 해야 기존 index 값이 유지된다
         # 0은 컬럼명 중 첫번째를 의미한다(배열구조)
