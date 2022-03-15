@@ -4,7 +4,7 @@ from icecream import ic
 
 from hello import Quiz20
 from hello.domains import myRandom, my803
-from titanic.models import Model
+from context.models import Model
 import random
 import string
 
@@ -118,22 +118,33 @@ class Quiz30:
 
     def quiz33_df_loc(self) -> str:
         #temp=self.create_df(keys=['a','b','c','d'],vals=np.random.randint(1,4000,4),len=3)
-
         #ic(temp)
         #print('*'*100)
 
-        '''df=pd.DataFrame(np.random.randint(0,100,(24,4)),index=my803(),columns=['자바','파이썬','자바스크립트','SQL'])
-        ic(df)
-        df.to_csv('./save/grade.csv', sep=',', na_rep='NaN')'''
+        df=pd.DataFrame(np.random.randint(0,100,(24,4)),index=my803(),columns=['자바','파이썬','자바스크립트','SQL'])
+        #ic(df)
+        model = Model()
+        #model.save_model('grade_backup.csv', dframe=df)
 
         #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
-        model=Model()
         grade_df=model.new_model('grade_backup.csv')
-        ic(grade_df)
+        #ic(grade_df)
+
+        print('Q1. 파이썬의 점수만 출력하시오')
+        python_scores = grade_df.loc[:,'파이썬']
+        ic(python_scores)
+
+        print('Q2. 조현국의 점수만 출력하시오.')
+        cho_scores=grade_df.loc['조현국']
+        ic(type(cho_scores))
+        ic(cho_scores)
+
 
 
 
         return None
+
+
 
 
 

@@ -1,7 +1,6 @@
-from titanic.domains import Dataset
-from titanic.models import Model
-import numpy as np
-import pandas as pd
+from context.domains import Dataset
+from context.models import Model
+
 
 class View:
     model=Model()
