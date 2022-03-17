@@ -3,11 +3,13 @@ from context.domains import Dataset
 from context.models import Model
 
 class TitanicModels(object):
+    model=Model()
+    ds=Dataset()
     def __init__(self,train_fname,test_fname):
-        self.model = Model()
-        self.ds = Dataset()
         self.train = self.model.new_model(train_fname)
         self.test = self.model.new_model(test_fname)
+        ic(f'트레인 컬럼 {self.train.columns}')
+        ic(f'트레인 헤드 {self.train.head()}')
         # id 추출
 
 
@@ -15,8 +17,6 @@ class TitanicModels(object):
 
     def preprocess(self):
         df=self.train
-        ic(f'트레인 컬럼 {df.columns}')
-        ic(f'트레인 헤드 {df.head()}')
         ic(df)
         df=self.drop_feature(df)
         df=self.create_train(df)

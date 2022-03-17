@@ -15,6 +15,7 @@ if __name__ == '__main__':
             print(' #### 1.템플릿 #### ')
            # view.preprocess('train.csv','test.csv')
             templates = TitanicTemplate(fname='train.csv')
+            templates.matplot_visualize()
             break
         elif menu =='2':
             print(' #### 2.전처리 #### ')
