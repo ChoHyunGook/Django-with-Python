@@ -59,6 +59,7 @@ class TitanicModels(object):
     @staticmethod
     def drop_feature(this,*feature)->object:
         #[i.drop(j, axis=1, inplace=True)for j in feature for i in [this.train,this.test]]
+        #[i.drop(list(feature), axis = 1)for i in [this.train, this.test]]
         # 리스트로 형태를 바꿔주는게 a
         a=[i for i in feature]
         this.train=this.train.drop(a, axis=1)
