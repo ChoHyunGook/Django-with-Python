@@ -34,11 +34,7 @@ class TitanicModels(object):
         this = self.drop_feature(this, 'Age')
         this = self.fare_ratio(this)
         this = self.drop_feature(this, 'Fare')
-        '''
-        this=self.create_train(this)
-        this=self.pclass_ordinal(this)
-        
-        '''
+        this = self.pclass_ordinal(this)
         self.df_info(this)
         return this
 
@@ -63,10 +59,6 @@ class TitanicModels(object):
         this.train = self.train
         this.test = self.test
         this.id = self.id
-        return this
-
-    @staticmethod
-    def create_train(this)->object:
         return this
 
     # 결합도는 낮추고 응집도는 높일수록 이상적인 모듈화가 이루어진다
